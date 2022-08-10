@@ -1,0 +1,42 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="card">
+  <div class="card-content">
+    <span class="card-title">Sign-up in system
+    </span>
+    <div class="input-field">
+      <input formControlName="username" id="username" type="text"
+        [ngClass]="{'invalid':form.get('username')?.invalid && form.get('username')?.touched}">
+      <label for="username">Username:</label>
+      <span class="helper-text red-text" *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+        <p *ngIf="form.get('email')?.errors?.['required']">Email cannot be empty
+        </p>
+      </span>
+    </div>
+    <div class="input-field">
+      <input formControlName="email" id="email" type="email"
+        [ngClass]="{'invalid':form.get('email')?.invalid && form.get('email')?.touched}">
+      <label for="email">Email:</label>
+      <span class="helper-text red-text" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+        <p *ngIf="form.get('email')?.errors?.['required']">Email cannot be empty
+        </p>
+        <p *ngIf="form.get('email')?.errors?.['email']">Email incorrect! Enter correct email
+        </p>
+      </span>
+    </div>
+    <div class="input-field">
+      <input formControlName="password" id="password" type="password"
+        [ngClass]="{'invalid':form.get('password')?.invalid && form.get('password')?.touched}">
+      <label for="password">Password:</label>
+      <span class="helper-text red-text" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+        <p *ngIf="form.get('password')?.errors?.['required']">Password cannot be empty
+        </p>
+        <p *ngIf="form.get('password')?.errors?.['pattern']">Password incorrect! The password must contain minimum eight
+          characters, at least one uppercase letter, one lowercase letter and one number
+        </p>
+      </span>
+    </div>
+  </div>
+  <div class="card-action">
+    <button type="submit" [disabled]="form.invalid || form.disabled"
+      class="modal-action btn waves-effect">Sign-up</button>
+  </div>
+</form>

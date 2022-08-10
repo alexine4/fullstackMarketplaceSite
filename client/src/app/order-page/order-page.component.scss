@@ -1,0 +1,23 @@
+.center-icons{
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: start;
+}
+
+.remove-item{
+	margin-left: 15px;
+	font-size: 34px;
+}
+
+.costs-text{
+	display: flex;
+	margin-left: 25px;
+font-size: 26px;
+flex-direction: row;
+align-items: center;
+ p{
+	font-weight: 700;
+	padding: 0 6px ;
+ }
+}

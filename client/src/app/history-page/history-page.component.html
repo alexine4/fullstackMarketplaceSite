@@ -1,0 +1,46 @@
+<div class="page-title">
+  <h4>Orders history</h4>
+
+  <button class="btn btn-small" (click)="filterVisible = !filterVisible" [class.active]="filterVisible"
+    [class.red]="isFiltered()">
+    <i class="material-icons" #tooltip data-tooltip="Фильтр">filter_list</i>
+  </button>
+</div>
+
+<app-history-filter *ngIf="filterVisible" (onFilter)="applyFilter($event)"></app-history-filter>
+
+
+<div *ngIf="!reloading; else reloadingRef">
+  <div *ngIf="orders$  | async as orders">
+    <div *ngIf="orders.length > 0; else empty">
+      <app-history-list [orders]="orders"></app-history-list>
+      <div class="center mb2" *ngIf="!helpText">
+        <div *ngIf="activePrev">
+          <button class="btn waves-effect blue yellow-text darken-1 btn-small" (click)="loadPreview()"
+            *ngIf="!loading; else loader" [ngStyle]="{display: noMore ? 'none' : 'inline-block'}">
+            Download previous
+          </button>
+        </div>
+        <div *ngIf="activeNext">
+          <button class="btn waves-effect mrgn yellow blue-text darken-1 btn-small" (click)="loadMore()"
+            *ngIf="!loading; else loader" [ngStyle]="{display: noMore ? 'none' : 'inline-block'}">
+            Download the following
+          </button>
+        </div>
+        <ng-template #loader>
+          <app-loader></app-loader>
+        </ng-template>
+      </div>
+      <div class="center mb2" *ngIf="helpText">
+        Ilf you want to see other entries, please filter by the required parameters
+      </div>
+    </div>
+  </div>
+  <ng-template #empty>
+    <div class="center">Заказов нет</div>
+  </ng-template>
+</div>
+
+<ng-template #reloadingRef>
+  <app-loader></app-loader>
+</ng-template>

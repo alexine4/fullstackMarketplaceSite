@@ -1,0 +1,55 @@
+<table class="highlight mb2">
+  <thead>
+    <tr>
+      <th>№</th>
+      <th>Data</th>
+      <th>Time</th>
+      <th>Cost</th>
+      <th>Order starus</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{order.id}}</td>
+      <td>{{getOrderDate(order)}}</td>
+      <td>{{getOrderTime(order)}}</td>
+      <td>{{order.costs}} uan</td>
+      <td>{{orderTransform(order)}} </td>
+      <td>
+        <button class="btn btn-small grey darken-1" (click)="showOrderList(order)">
+          <i class="material-icons">open_in_new</i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div #modal class="modal modal-fixed-footer">
+  <div class="modal-content" *ngIf="selectedOrder">
+    <h4 class="mb1">Order №{{selectedOrder.id}}</h4>
+    <table class="highlight">
+      <thead>
+
+        <tr>
+          <th>Name position</th>
+          <th>Quantity</th>
+          <th>Cost</th>
+        </tr>
+
+      </thead>
+      <tbody *ngIf="orderList$ | async as orderLists">
+
+        <tr *ngFor="let orderList of orderLists">
+          <td>{{orderList.name}}</td>
+          <td>{{orderList.quantity}}</td>
+          <td>{{orderList.cost}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-action waves-effect waves-black btn-flat" (click)="closeListModal()">Закрыть</button>
+  </div>
+</div>
